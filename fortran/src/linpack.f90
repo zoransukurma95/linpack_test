@@ -15,7 +15,7 @@ subroutine linpack_real_sp(n, niter, rank)
   integer, intent(in)   :: rank
   !local variables
   integer               :: iter
-  real(dp)              :: tstart, tend
+  real(dp)              :: tstart, tend, flops
   real(sp), allocatable :: a(:,:)
   real(sp), allocatable :: b(:,:)
   real(sp), allocatable :: c(:,:)
@@ -31,12 +31,13 @@ subroutine linpack_real_sp(n, niter, rank)
   end do
   tend = MPI_Wtime()
 
+  flops = 2.0_dp*niter*real(n,dp)**3/(tend-tstart)/1.0e09_dp
   if (rank == 0) then
     write(*,*)           "**************************************************"
     write(*,"(a,i6)")    " linpack for real(sp) n = ", n
     write(*,"(a,i6)")    " Number of iterations   = ", niter
     write(*,"(a,f12.2)") " Elasped time in s      = ", tend-tstart
-    write(*,"(a,f8.2)")  " Perfromance in GFLOPS  = ", 2.0_dp*n**3/(tend-tstart)/1.0e09_dp
+    write(*,"(a,f8.2)")  " Perfromance in GFLOPS  = ", flops
   end if
 end subroutine linpack_real_sp
 
@@ -46,7 +47,7 @@ subroutine linpack_real_dp(n, niter, rank)
   integer, intent(in)   :: rank
   !local variables
   integer               :: iter
-  real(dp)              :: tstart, tend
+  real(dp)              :: tstart, tend, flops
   real(dp), allocatable :: a(:,:)
   real(dp), allocatable :: b(:,:)
   real(dp), allocatable :: c(:,:)
@@ -63,12 +64,13 @@ subroutine linpack_real_dp(n, niter, rank)
   end do
   tend = MPI_Wtime()
 
+  flops = 2.0_dp*niter*real(n,dp)**3/(tend-tstart)/1.0e09_dp
   if (rank == 0) then
     write(*,*)           "**************************************************"
-    write(*,"(a,i6)")    " linpack for real(sp) n = ", n
+    write(*,"(a,i6)")    " linpack for real(dp) n = ", n
     write(*,"(a,i6)")    " Number of iterations   = ", niter
     write(*,"(a,f12.2)") " Elasped time in s      = ", tend-tstart
-    write(*,"(a,f8.2)")  " Perfromance in GFLOPS  = ", 2.0_dp*n**3/(tend-tstart)/1.0e09_dp
+    write(*,"(a,f8.2)")  " Perfromance in GFLOPS  = ", flops
   end if
 end subroutine linpack_real_dp
 
@@ -78,7 +80,7 @@ subroutine linpack_cmplx_sp(n, niter, rank)
   integer, intent(in)      :: rank
   !local variables
   integer                  :: iter
-  real(dp)                 :: tstart, tend
+  real(dp)                 :: tstart, tend, flops
   complex(sp), allocatable :: a(:,:)
   complex(sp), allocatable :: b(:,:)
   complex(sp), allocatable :: c(:,:)
@@ -102,12 +104,13 @@ subroutine linpack_cmplx_sp(n, niter, rank)
   end do
   tend = MPI_Wtime()
 
+  flops = 6.0_dp*niter*real(n,dp)**3/(tend-tstart)/1.0e09_dp
   if (rank == 0) then 
     write(*,*)           "**************************************************"
-    write(*,"(a,i6)")    " linpack for real(sp) n = ", n
-    write(*,"(a,i6)")    " Number of iterations   = ", niter
-    write(*,"(a,f12.2)") " Elasped time in s      = ", tend-tstart
-    write(*,"(a,f8.2)")  " Perfromance in GFLOPS  = ", 6.0_dp*n**3/(tend-tstart)/1.0e09_dp
+    write(*,"(a,i6)")    " linpack for complex(sp) n = ", n
+    write(*,"(a,i6)")    " Number of iterations      = ", niter
+    write(*,"(a,f12.2)") " Elasped time in s         = ", tend-tstart
+    write(*,"(a,f8.2)")  " Perfromance in GFLOPS     = ", flops
   end if
 end subroutine linpack_cmplx_sp
 
@@ -117,7 +120,7 @@ subroutine linpack_cmplx_dp(n, niter, rank)
   integer, intent(in)      :: rank
   !local variables
   integer                  :: iter
-  real(dp)                 :: tstart, tend
+  real(dp)                 :: tstart, tend, flops
   complex(dp), allocatable :: a(:,:)
   complex(dp), allocatable :: b(:,:)
   complex(dp), allocatable :: c(:,:)
@@ -141,12 +144,13 @@ subroutine linpack_cmplx_dp(n, niter, rank)
   end do
   tend = MPI_Wtime()
 
+  flops = 6.0_dp*niter*real(n,dp)**3/(tend-tstart)/1.0e09_dp
   if (rank == 0) then
     write(*,*)           "**************************************************"
-    write(*,"(a,i6)")    " linpack for real(sp) n = ", n
-    write(*,"(a,i6)")    " Number of iterations   = ", niter
-    write(*,"(a,f12.2)") " Elasped time in s      = ", tend-tstart
-    write(*,"(a,f8.2)")  " Perfromance in GFLOPS  = ", 6.0_dp*n**3/(tend-tstart)/1.0e09_dp
+    write(*,"(a,i6)")    " linpack for complex(dp) n = ", n
+    write(*,"(a,i6)")    " Number of iterations      = ", niter
+    write(*,"(a,f12.2)") " Elasped time in s         = ", tend-tstart
+    write(*,"(a,f8.2)")  " Perfromance in GFLOPS     = ", flops
   end if
 end subroutine linpack_cmplx_dp
 

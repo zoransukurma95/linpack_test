@@ -101,6 +101,17 @@ def linpack_c_dp(n, niter):
     return None
 
 
+n = 100
+niter = 10000
+linpack_r_sp(n, niter)
+linpack_r_dp(n, niter)
+linpack_c_sp(n, niter)
+linpack_c_dp(n, niter)
+print("**************************************************")
+print()
+print()
+print()
+
 n = 500
 niter = 200
 linpack_r_sp(n, niter)

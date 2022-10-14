@@ -1,4 +1,4 @@
-COMP=intel
+COMP=gnu
 
 ifeq ($(COMP), gnu)
     FC=mpif90  -fallow-argument-mismatch
