@@ -1,3 +1,6 @@
+fortran/bin/
+fortran/vers/
+
 # Prerequisites
 *.d
 
