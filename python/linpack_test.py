@@ -65,7 +65,7 @@ def linpack_c_sp(n, niter):
     tend = time.time()
 
     tot_time = tend - tstart 
-    flops = 6.0 * n**3 * niter / (tend-tstart) / 1.0e09
+    flops = 8.0 * n**3 * niter / (tend-tstart) / 1.0e09
 
     print("**************************************************")
     print("linpack for complex(sp) n = {0:6d}".format(n))
@@ -90,7 +90,7 @@ def linpack_c_dp(n, niter):
     tend = time.time()
 
     tot_time = tend - tstart 
-    flops = 6.0 * n**3 * niter / (tend-tstart) / 1.0e09
+    flops = 8.0 * n**3 * niter / (tend-tstart) / 1.0e09
 
     print("**************************************************")
     print("linpack for complex(dp) n = {0:6d}".format(n))

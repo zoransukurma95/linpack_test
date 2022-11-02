@@ -2,6 +2,7 @@ program linpack_test
 
   use mpi_f08
   use linpack
+  !$ use omp_lib
 
   implicit none
 
@@ -11,6 +12,8 @@ program linpack_test
 
   call MPI_Init(ierr)
   call MPI_Comm_Rank(mpi_comm_world, rank)
+
+  call omp_set_max_active_levels(2)
 
   n = 100
   niter = 1000

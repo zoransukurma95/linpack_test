@@ -26,9 +26,11 @@ subroutine linpack_real_sp(n, niter, rank)
   call random_number(b)
   
   tstart = MPI_Wtime()
+  !$omp parallel private(c)
   do iter = 1, niter
     call sgemm("n","n",n,n,n,1.0_sp,a,n,b,n,0.0_sp,c,n)
   end do
+  !$omp end parallel
   tend = MPI_Wtime()
 
   flops = 2.0_dp*niter*real(n,dp)**3/(tend-tstart)/1.0e09_dp
@@ -59,9 +61,11 @@ subroutine linpack_real_dp(n, niter, rank)
   call random_number(b)
   
   tstart = MPI_Wtime()
+  !$omp parallel private(c)
   do iter = 1, niter
     call dgemm("n","n",n,n,n,1.0_dp,a,n,b,n,0.0_dp,c,n)
   end do
+  !$omp end parallel
   tend = MPI_Wtime()
 
   flops = 2.0_dp*niter*real(n,dp)**3/(tend-tstart)/1.0e09_dp
@@ -99,12 +103,14 @@ subroutine linpack_cmplx_sp(n, niter, rank)
   b = cmplx(b_r, b_i, kind=sp)
 
   tstart = MPI_Wtime()
+  !$omp parallel private(c)
   do iter = 1, niter
     call cgemm("n","n",n,n,n,(1.0_sp,0.0_sp),a,n,b,n,(0.0_sp,0.0_sp),c,n)
   end do
+  !$omp end parallel
   tend = MPI_Wtime()
 
-  flops = 6.0_dp*niter*real(n,dp)**3/(tend-tstart)/1.0e09_dp
+  flops = 8.0_dp*niter*real(n,dp)**3/(tend-tstart)/1.0e09_dp
   if (rank == 0) then 
     write(*,*)           "**************************************************"
     write(*,"(a,i6)")    " linpack for complex(sp) n = ", n
@@ -139,12 +145,14 @@ subroutine linpack_cmplx_dp(n, niter, rank)
   b = cmplx(b_r, b_i, kind=dp)
 
   tstart = MPI_Wtime()
+  !$omp parallel private(c)
   do iter = 1, niter
     call zgemm("n","n",n,n,n,(1.0_dp,0.0_dp),a,n,b,n,(0.0_dp,0.0_dp),c,n)
   end do
+  !$omp end parallel
   tend = MPI_Wtime()
 
-  flops = 6.0_dp*niter*real(n,dp)**3/(tend-tstart)/1.0e09_dp
+  flops = 8.0_dp*niter*real(n,dp)**3/(tend-tstart)/1.0e09_dp
   if (rank == 0) then
     write(*,*)           "**************************************************"
     write(*,"(a,i6)")    " linpack for complex(dp) n = ", n
